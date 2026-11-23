@@ -1,0 +1,46 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    namespace 'com.daywitch.oneline'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId 'com.daywitch.oneline'
+        minSdk 24
+        targetSdk 34
+        versionCode 1
+        versionName '1.0'
+    }
+
+    // 업데이트해도 기록이 유지되도록 항상 같은 서명 키를 써요
+    signingConfigs {
+        shared {
+            storeFile file('oneline.keystore')
+            storePassword 'oneline123'
+            keyAlias 'oneline'
+            keyPassword 'oneline123'
+        }
+    }
+
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.shared
+        }
+        release {
+            signingConfig signingConfigs.shared
+            minifyEnabled false
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    lint {
+        checkReleaseBuilds false
+        abortOnError false
+    }
+}
